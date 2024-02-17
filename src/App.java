@@ -1,33 +1,43 @@
 
-
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.util.Scanner;
 import java.io.IOException;
 
 public class App {
     public static void main(String[] args) {
         String path = "teste.txt";
-        BufferedReader br = null;
-        FileReader fr = null;
-        try {
-            fr = new FileReader(path);
-            br = new BufferedReader(fr);
-            String line = br.readLine();
-            while (line != null) {
+        FileReader fileReader = null;
+        BufferedReader buffer = null;
+
+        try{
+            fileReader = new FileReader(path);
+            buffer = new BufferedReader(fileReader);
+
+            String line = buffer.readLine();
+
+            while(line != null){
                 System.out.println(line);
-                line = br.readLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        } finally {
-            try {
-                if (br != null)
-                    br.close();
-                if (fr != null)
-                    fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                line = buffer.readLine();
             }
         }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        finally{
+            try {
+                if (fileReader != null) {
+                    fileReader.close();
+                }
+                if (buffer != null) {
+                    buffer.close();
+                }
+            }  
+            catch(IOException e){
+                e.fillInStackTrace();
+            }  
+        }
     }
+
 }
